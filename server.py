@@ -5,37 +5,17 @@ import quart_cors
 from quart import request
 
 # Note: Setting CORS to allow chat.openapi.com is required for ChatGPT to access your plugin
-app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")
-
-_TODOS = {}
-
-
-@app.post("/todos/<string:username>")
-async def add_todo(username):
-    request = await quart.request.get_json(force=True)
-    if username not in _TODOS:
-        _TODOS[username] = []
-    _TODOS[username].append(request["todo"])
-    return quart.Response(response='OK', status=200)
-
-
-@app.get("/todos/<string:username>")
-async def get_todos(username):
-    return quart.Response(response=json.dumps(_TODOS.get(username, [])), status=200)
-
-
-@app.delete("/todos/<string:username>")
-async def delete_todo(username):
-    request = await quart.request.get_json(force=True)
-    todo_idx = request["todo_idx"]
-    if 0 <= todo_idx < len(_TODOS[username]):
-        _TODOS[username].pop(todo_idx)
-    return quart.Response(response='OK', status=200)
-
+app = quart_cors.cors(quart.Quart(__name__), allow_origin="*") #https://chat.openai.com")
 
 @app.get("/logo.png")
 async def plugin_logo():
     filename = 'logo.png'
+    return await quart.send_file(filename, mimetype='image/png')
+
+
+@app.get("/favicon.ico")
+async def plugin_favicon():
+    filename = 'favicon.ico'
     return await quart.send_file(filename, mimetype='image/png')
 
 
@@ -61,7 +41,13 @@ async def openapi_spec():
 
 @app.get("/ping")
 async def ping():
-    return quart.Response('pong', mimetype="text/yaml")
+    return quart.Response(response=json.dumps({'msg': 'pong'}), mimetype="text/json")
+
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+async def index(path):
+  return quart.Response(response=json.dumps({'msg': 'catch all'}), mimetype="text/json")
 
 
 def main():
