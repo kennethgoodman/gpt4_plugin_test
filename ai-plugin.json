@@ -9,10 +9,10 @@
   },
   "api": {
     "type": "openapi",
-    "url": "PLUGIN_HOSTNAME/openapi.yaml",
+    "url": "18.205.244.229/openapi.yaml",
     "is_user_authenticated": false
   },
-  "logo_url": "PLUGIN_HOSTNAME/logo.png",
+  "logo_url": "18.205.244.229/logo.png",
   "contact_email": "ken@kennethgoodman.me",
   "legal_info_url": "18.205.244.229/legal"
 }
