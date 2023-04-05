@@ -59,6 +59,11 @@ async def openapi_spec():
         return quart.Response(text, mimetype="text/yaml")
 
 
+@app.get("/ping")
+async def openapi_spec():
+    return quart.Response('pong', mimetype="text/yaml")
+
+
 def main():
     app.run(debug=True, host="0.0.0.0", port=5002)
 
