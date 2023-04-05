@@ -4,7 +4,7 @@ info:
   description: A plugin that allows the user to Ping.
   version: 'v1'
 servers:
-  - url: http://localhost:5002
+  - url: PLUGIN_HOSTNAME
 paths:
   /ping:
     get:
