@@ -9,7 +9,7 @@ paths:
   /ping:
     get:
       operationId: getPing
-      summary: Get the ping
+      summary: Get the ping from me
       responses:
         "200":
           description: OK

@@ -34,6 +34,7 @@ async def openapi_spec():
     host = request.headers['Host']
     with open("openapi.yaml") as f:
         text = f.read()
+        print(text)
         # This is a trick we do to populate the PLUGIN_HOSTNAME constant in the OpenAPI spec
         text = text.replace("PLUGIN_HOSTNAME", f"https://{host}")
         return quart.Response(text, mimetype="text/yaml")
@@ -50,9 +51,5 @@ async def index(path):
   return quart.Response(response=json.dumps({'msg': 'catch all'}), mimetype="text/json")
 
 
-def main():
-    app.run(debug=True, host="0.0.0.0", port=5002)
-
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    app.run()
